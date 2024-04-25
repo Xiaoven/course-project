@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+// Specify Java version
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+// Specify Gradle version
+wrapper {
+    gradleVersion = '7.4'
+}
+
+
+repositories {
+    mavenCentral()
+    // You may need to add this if your local JAR is not in the default Maven or JCenter repositories
+    mavenLocal()
+}
+
+dependencies {
+//    implementation('com.github.tsantalis:refactoring-miner:3.0.4')
+    implementation files('libs/RM-fat.jar')  // use the newest version built from source code
+
+    // https://mvnrepository.com/artifact/com.github.mauricioaniche/ck
+    implementation("com.github.mauricioaniche:ck:0.7.0")
+
+
+    implementation("org.eclipse.jgit:org.eclipse.jgit:6.8.0.202311291450-r")
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation("commons-io:commons-io:2.15.1")
+    // https://mvnrepository.com/artifact/org.apache.maven/maven-model
+    implementation("org.apache.maven:maven-model:3.9.6")
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
